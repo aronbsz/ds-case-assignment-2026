@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vodafone Churn & Retention Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Vodafone Churn Demo</div>
+    <nav>
+      <a href="#objective">Objective</a>
+      <a href="#performance">Performance</a>
+      <a href="#drivers">Drivers</a>
+      <a href="#activation">Activation</a>
+      <a href="#governance">Governance</a>
+      <a href="#roadmap">Roadmap</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="objective" class="section hero">
+      <p class="eyebrow">Part I + Part II</p>
+      <h1>AI-Powered Churn Prediction and Retention Activation</h1>
+      <p class="lead">Predict churn risk, identify key churn drivers, and activate segment-specific, brand-aligned retention messaging.</p>
+      <div class="poc-banner">
+        <strong>PoC context:</strong> This demo uses a relatively small sample dataset to validate approach and workflow. A production-scale model trained on larger, richer data is expected to improve predictive performance and segment quality.
+      </div>
+      <div class="kpi-grid" id="kpi-grid"></div>
+      <p class="so-what"><strong>So what:</strong> We can identify high-risk customers with solid discrimination and turn predictions into actionable retention communication.</p>
+    </section>
+
+    <section id="performance" class="section">
+      <h2>1. Can We Classify Churn Well?</h2>
+      <p>Results from tuned Logistic Regression and Random Forest, evaluated with imbalance-aware metrics.</p>
+      <div class="panel two-col">
+        <div>
+          <h3>Model Comparison</h3>
+          <table id="model-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>ROC-AUC</th>
+                <th>PR-AUC</th>
+                <th>Churn Precision</th>
+                <th>Churn Recall</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <p class="note">Recommendation by objective: RF for ranking quality, LR when catching churners is prioritized.</p>
+        </div>
+        <div>
+          <h3>Performance Snapshot</h3>
+          <div class="mini-cards" id="perf-cards"></div>
+        </div>
+      </div>
+      <p class="so-what"><strong>So what:</strong> In this PoC both models are viable; at larger production scale we expect stronger ranking and calibration, with final model/threshold selection aligned to campaign cost vs missed-churn trade-off.</p>
+    </section>
+
+    <section id="drivers" class="section">
+      <h2>2. What Factors Influence Churn, and in What Direction?</h2>
+      <div class="panel two-col">
+        <div>
+          <h3>Top Churn-Increasing Signals (LR Direction)</h3>
+          <ul id="increase-list" class="signal-list"></ul>
+        </div>
+        <div>
+          <h3>Top Churn-Reducing Signals (LR Direction)</h3>
+          <ul id="decrease-list" class="signal-list"></ul>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Most Influential Features (RF Importance)</h3>
+        <ol id="rf-list" class="importance-list"></ol>
+      </div>
+      <p class="note">Caution: charge-related variables and tenure are correlated, so business actions should be validated with controlled tests.</p>
+      <p class="so-what"><strong>So what:</strong> Contract type, tenure, and support/security consistently explain churn risk and directly inform retention strategy.</p>
+    </section>
+
+    <section id="activation" class="section">
+      <h2>3. LLM Activation: From Risk Score to Retention Email</h2>
+      <div class="flow">
+        <div class="step"><span>1</span><p>Score customers with churn model</p></div>
+        <div class="step"><span>2</span><p>Assign segment by profile and risk pattern</p></div>
+        <div class="step"><span>3</span><p>Use segment-specific prompt template</p></div>
+        <div class="step"><span>4</span><p>Generate Vodafone-style retention email</p></div>
+      </div>
+
+      <div class="panel two-col">
+        <div>
+          <h3>Segment Prompt Strategy (3 segments)</h3>
+          <ul>
+            <li><strong>Price-sensitive monthly:</strong> savings, plan flexibility, billing transparency.</li>
+            <li><strong>Service-support gap:</strong> reliability reassurance, support/security improvements.</li>
+            <li><strong>Loyal renewal:</strong> recognition, perks, premium continuation offers.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Sample Email (Support Gap Segment)</h3>
+          <article class="email-card" id="sample-email"></article>
+        </div>
+      </div>
+      <p class="so-what"><strong>So what:</strong> This closes the loop from analytics to customer communication with consistent tone and higher relevance.</p>
+    </section>
+
+    <section id="governance" class="section">
+      <h2>4. Brand Control and Safe Operations</h2>
+      <div class="panel two-col">
+        <div>
+          <h3>Generation Controls</h3>
+          <ul>
+            <li>Fixed structure (subject, intro, bullets, CTA, close).</li>
+            <li>Tone constraints (friendly, clear, positive, professional).</li>
+            <li>Forbidden content rules (no mention of model/churn prediction).</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Validation Controls</h3>
+          <ul>
+            <li>Automatic checklist pass/fail after generation.</li>
+            <li>Auto-regenerate with targeted feedback if failed.</li>
+            <li>Sample manual QA with brand/marketing approval gates.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="so-what"><strong>So what:</strong> The solution is not only effective, but also governable and brand-safe for scaled deployment.</p>
+    </section>
+
+    <section id="roadmap" class="section">
+      <h2>5. Recommendation and Rollout Plan</h2>
+      <div class="panel two-col">
+        <div>
+          <h3>Recommended Operating Choice</h3>
+          <ul>
+            <li>Use <strong>Random Forest</strong> for ranking and prioritization quality.</li>
+            <li>Keep <strong>Logistic Regression</strong> as a challenger when recall-heavy strategy is needed.</li>
+            <li>Set campaign thresholds based on outreach capacity and expected retention ROI.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>30-60-90 Plan</h3>
+          <ul>
+            <li><strong>30:</strong> pilot with one segment and controlled audience.</li>
+            <li><strong>60:</strong> threshold optimization and A/B tests on offer framing.</li>
+            <li><strong>90:</strong> multi-segment rollout with quality and uplift dashboards.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Scale-up Positioning</h3>
+        <ul>
+          <li>This presentation demonstrates feasibility on a small PoC dataset.</li>
+          <li>Next phase trains the same architecture on larger, broader historical data.</li>
+          <li>Expected gains: stronger churn recall/precision balance, richer segmentation, and higher retention uplift per campaign.</li>
+        </ul>
+      </div>
+      <p class="so-what"><strong>So what:</strong> We can move from model insight to measurable retention impact with a low-friction phased rollout.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared for CMO & CTO review · PoC demo built from notebook outputs with scale-up plan for larger production datasets</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
